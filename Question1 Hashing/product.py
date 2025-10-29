@@ -13,7 +13,7 @@ class FeedingProduct(BabyProduct):
     def __init__(self, producy_id, name, price, quantity):
         super().__init__(producy_id, name, "Feeding", price, quantity)
 
-class HygienceProduct(BabyProduct):
+class HygieneProduct(BabyProduct):
     def __init__(self, producy_id, name, price, quantity):
         super().__init__(producy_id, name, "Hygience", price, quantity)
 
