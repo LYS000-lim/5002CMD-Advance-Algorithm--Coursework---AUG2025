@@ -92,3 +92,17 @@ class Graph:
         else:
             for user in followers:
                 print(f" - {user}")
+
+    def sample_data(self):
+        people = [
+            Person("Lim", "male", "i love play basketball", "public"),
+            Person("Yu", "male", "i love play football", "public"),
+            Person("Sheng", "male", "i love play volleyball", "private"),
+            Person("John", "female", "i love play pingpong", "public"),
+            Person("Cena", "female", "i love play baseball", "private"),
+        ]
+
+        for p in Person:
+            self.add_vertex(p)
+
+        self.add_edge("Lim")
