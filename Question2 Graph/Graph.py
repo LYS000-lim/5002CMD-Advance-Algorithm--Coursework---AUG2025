@@ -6,17 +6,22 @@ class Person:
         self.privacy = privacy
 
     def __str__(self):
-        if self.privacy == "private":
+        """String representation of the user, hides info if private."""
+        if self.privacy.lower() == "private":
             return f"{self.name} (Private Profile)"
         return f"{self.name} ({self.gender}) - {self.biography}"
-        
+
+
 class Graph:
     def __init__(self):
+        # Dictionary that maps a username to the list of users they follow
         self.graph = {}
+        # Dictionary that stores Person objects (user profiles)
         self.vertex_data = {}
 
     def add_vertex(self, person):
-        if len(self.graph) > 10:
+        """Add a new user vertex (with a Person object)."""
+        if len(self.graph) >= 10:  
             print("❌ Cannot add more than 10 users.")
             return        
         if person.name in self.graph:
@@ -43,6 +48,7 @@ class Graph:
         print(f"🔗 {follower} now follows {followed}")
 
     def remove_edge(self, follower, followed):
+        """Remove an existing follow relationship."""
         if follower in self.graph and followed in self.graph[follower]:
             self.graph[follower].remove(followed)
             print(f"❌ {follower} unfollowed {followed}")
@@ -50,11 +56,13 @@ class Graph:
             print("⚠️ Follow relationship not found.")
 
     def list_users(self):
+        """List all registered users."""
         print("\n=== List of Users ===")
-        for i, user in enumerate(self.graph.key, i = 1):
-            print(f"{i} : {user}")
+        for i, user in enumerate(self.graph.keys(), start=1): 
+            print(f"{i}. {user}")
 
     def view_profile(self, person_name):
+        """Display a user's profile (with privacy consideration)."""
         if person_name not in self.vertex_data:
             print("❌ User not found.")
             return
@@ -69,6 +77,7 @@ class Graph:
             print(f"Privacy: {user.privacy}")
 
     def list_following(self, person_name):
+        """Show who this user is following (outgoing edges)."""
         if person_name not in self.graph:
             print("❌ User not found.")
             return
@@ -81,12 +90,13 @@ class Graph:
             for u in following:
                 print(f" - {u}")
 
-    def list_follewers(self, person_name):
+    def list_followers(self, person_name):
+        """Show who follows this user (incoming edges)."""
         if person_name not in self.graph:
             print("❌ User not found.")
             return
         print(f"\n👥 Followers of {person_name}:")
-        followers = [u for u, v in enumerate(self.graph.item()) if person_name in v]
+        followers = [u for u, v in self.graph.items() if person_name in v]  
         if not followers:
             print("No followers.")
         else:
@@ -94,15 +104,20 @@ class Graph:
                 print(f" - {user}")
 
     def sample_data(self):
+        """Populate the graph with example users and follow relationships."""
         people = [
-            Person("Lim", "male", "i love play basketball", "public"),
-            Person("Yu", "male", "i love play football", "public"),
-            Person("Sheng", "male", "i love play volleyball", "private"),
-            Person("John", "female", "i love play pingpong", "public"),
-            Person("Cena", "female", "i love play baseball", "private"),
+            Person("Lim", "Male", "I love basketball", "public"),
+            Person("Yu", "Male", "I love football", "public"),
+            Person("Sheng", "Male", "I love volleyball", "private"),
+            Person("John", "Female", "I love pingpong", "public"),
+            Person("Cena", "Female", "I love baseball", "private"),
         ]
 
-        for p in Person:
+        for p in people:  
             self.add_vertex(p)
 
-        self.add_edge("Lim")
+        # Add sample follow relationships
+        self.add_edge("Lim", "Yu")
+        self.add_edge("Yu", "John")
+        self.add_edge("John", "Cena")
+        self.add_edge("Sheng", "Lim")

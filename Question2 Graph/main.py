@@ -2,7 +2,7 @@ from graph import Graph, Person
 
 def run_cli():
     app = Graph()
-    app.sample_data
+    app.sample_data() 
 
     while True:
         print("\n=== SOCIAL MEDIA MENU ===")
@@ -15,40 +15,39 @@ def run_cli():
         print("7. Unfollow a user")
         print("0. Exit")
 
-        choice = input("Enter your choice")
+        choice = input("Enter your choice: ")
 
-        if choice == 1:
-            app.list_users
+        if choice == "1":  
+            app.list_users()
         
-        elif choice == 2:
-            name = input("Enter name you want to search")
+        elif choice == "2":
+            name = input("Enter name you want to search: ")
             app.view_profile(name)
         
-        elif choice == 3:
-            name = input("Enter username")
+        elif choice == "3":
+            name = input("Enter username: ")
             app.list_following(name)
         
-        elif choice == 4:
-            name = input("Enter username")
+        elif choice == "4":
+            name = input("Enter username: ")
             app.list_followers(name)
 
-        elif choice == 5:
+        elif choice == "5":
             name = input("Enter name: ")
             gender = input("Enter gender: ")
             bio = input("Enter biography: ")
             privacy = input("Privacy (public/private): ").lower()            
-            
-            app.add_vertex(Person(name,gender,bio,privacy))
+            app.add_vertex(Person(name, gender, bio, privacy))
 
-        elif choice == 6:
-            follower = input("Enter follower username")
-            followed = input("Enter followed username")
+        elif choice == "6":
+            follower = input("Enter follower username: ")
+            followed = input("Enter followed username: ")
             app.add_edge(follower, followed)
 
-        elif choice == 7:
-            unfollower = input("Enter unfollower username")
-            unfollowed = input("Enter unfollowed username")
-            app.add_edge(unfollower, unfollowed)
+        elif choice == "7":
+            unfollower = input("Enter unfollower username: ")
+            unfollowed = input("Enter unfollowed username: ")
+            app.remove_edge(unfollower, unfollowed)  
 
         elif choice == "0":
             print("👋 Exiting program.")
