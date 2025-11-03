@@ -4,6 +4,7 @@ from product import HygieneProduct, BathProduct, FeedingProduct, SkinCareProduct
 def run_cli():
     inventory = HashTable(5)
 
+    # Predefined products
     inventory.put(1, FeedingProduct(1, "Baby Bottle", 15.00, 40))
     inventory.put(2, HygieneProduct(2, "Baby Diapers", 40.00, 100))
     inventory.put(3, SkinCareProduct(3, "Baby Lotion", 25.00, 60))
@@ -19,52 +20,54 @@ def run_cli():
         print("5. Display all")
         print("6. Exit")
 
-        choice = input(int("Enter your choice"))
+        choice = input("Enter your choice: ")
 
-        if choice == 1:
-            product_id = input(int("Enter Product ID"))
-            product_name = input("Enter Product Name")
-            category = input("Enter Product Category")
-            price = input(float("Enter Product Price"))
-            quantity = input("Enter Product Quantity")
+        if choice == "1":
+            product_id = int(input("Enter Product ID: "))
+            product_name = input("Enter Product Name: ")
+            category = input("Enter Product Category: ")
+            price = float(input("Enter Product Price: "))
+            quantity = int(input("Enter Product Quantity: "))
 
-            if category.lower == "hygience":
+            # Choose subclass based on category
+            category_lower = category.lower()
+            if category_lower == "hygiene":
                 product = HygieneProduct(product_id, product_name, price, quantity)
-            elif category.lower == "bath":
+            elif category_lower == "bath":
                 product = BathProduct(product_id, product_name, price, quantity)
-            elif category.lower == "feeding":
+            elif category_lower == "feeding":
                 product = FeedingProduct(product_id, product_name, price, quantity)
-            elif category.lower == "skincare":
+            elif category_lower == "skincare":
                 product = SkinCareProduct(product_id, product_name, price, quantity)
             else:
                 product = BabyProduct(product_id, product_name, category, price, quantity)
 
             inventory.put(product_id, product)
+            print(f"✅ Product '{product_name}' added successfully!")
 
-        elif choice == 2:
-            key = input(int("Enter the key number you want to search"))
+        elif choice == "2":
+            key = int(input("Enter the product ID to search: "))
             result = inventory.get(key)
             if result:
-                print(result)
+                print(f"🔍 Found: {result}")
             else:
-                print("Result no found")
+                print("❌ Product not found.")
 
-        elif choice == 3:
-            key = input("Enter Id you want to modify")
-            new_name = input("Enter new name")
-            new_price = input(float("Enter new price"))
-            new_quantity = input(int("Enter new quantity"))
+        elif choice == "3":
+            key = int(input("Enter product ID to modify: "))
+            new_name = input("Enter new name (leave blank to skip): ")
+            new_price = input("Enter new price (leave blank to skip): ")
+            new_quantity = input("Enter new quantity (leave blank to skip): ")
 
             kwargs = {}
-
             if new_name: kwargs["name"] = new_name
-            if new_name: kwargs["price"] = new_price
-            if new_name: kwargs["quantity"] = new_quantity
+            if new_price: kwargs["price"] = float(new_price)
+            if new_quantity: kwargs["quantity"] = int(new_quantity)
 
             inventory.modify(key, **kwargs)
 
-        elif choice == 4:
-            key = input("Enter Id you want to delete")
+        elif choice == "4":
+            key = int(input("Enter product ID to delete: "))
             inventory.delete(key)
 
         elif choice == "5":
@@ -76,6 +79,7 @@ def run_cli():
 
         else:
             print("⚠️ Invalid choice, try again.")
+
 
 if __name__ == "__main__":
     run_cli()
