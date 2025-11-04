@@ -1,3 +1,4 @@
+# Products of baby shop
 class BabyProduct:
     """Base class representing a generic baby product."""
     def __init__(self, product_id, name, category, price, quantity):

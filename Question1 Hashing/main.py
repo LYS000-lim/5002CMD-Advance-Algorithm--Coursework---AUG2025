@@ -8,6 +8,7 @@ def run_cli():
     inventory.put(1, FeedingProduct(1, "Baby Bottle", 15.00, 40))
     inventory.put(2, HygieneProduct(2, "Baby Diapers", 40.00, 100))
     inventory.put(3, SkinCareProduct(3, "Baby Lotion", 25.00, 60))
+    inventory.put(4, SkinCareProduct(4, "Baby Shampoos", 15.00, 50))
 
     print("🍼 Welcome to Baby Shop Inventory System 🍼")
 

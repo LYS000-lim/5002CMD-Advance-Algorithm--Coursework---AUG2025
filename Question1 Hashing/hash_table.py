@@ -12,7 +12,7 @@ class HashTable:
         self.bucket_number = initial_capacity
         self.bucket = [Node() for _ in range(self.bucket_number)]  # create empty head nodes
         self.size = 0
-        self.load_threshold_factor = load_threshold_factor
+        self.load_threshold_factor = load_threshold_factor # if exceed this percentage it will be rehash
 
     def hash(self, key):
         """Hash function to find index."""
