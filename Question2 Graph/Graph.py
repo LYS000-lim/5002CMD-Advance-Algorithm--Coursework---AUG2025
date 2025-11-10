@@ -1,3 +1,5 @@
+from person import Person
+
 class Graph:
     def __init__(self):
         # Dictionary that maps a username to the list of users they follow
@@ -93,8 +95,8 @@ class Graph:
         """Populate the graph with example users and follow relationships."""
         people = [
             Person("Lim", "Male", "I love basketball", "public"),
-            Person("Yu", "Male", "I love football", "public"),
-            Person("Sheng", "Male", "I love volleyball", "private"),
+            Person("Jenny", "Male", "I love football", "public"),
+            Person("Lisa", "Male", "I love volleyball", "private"),
             Person("John", "Female", "I love pingpong", "public"),
             Person("Cena", "Female", "I love baseball", "private"),
         ]
@@ -103,7 +105,22 @@ class Graph:
             self.add_vertex(p)
 
         # Add sample follow relationships
-        self.add_edge("Lim", "Yu")
-        self.add_edge("Yu", "John")
+        self.add_edge("Lim", "Jenny")
+        self.add_edge("Jenny", "John")
         self.add_edge("John", "Cena")
-        self.add_edge("Sheng", "Lim")
+        self.add_edge("Lisa", "Lim")
+        self.add_edge("Cena", "Lim")
+
+    def view_profile_ignore_privacy(self, person_name):
+        """Display full profile details regardless of privacy setting."""
+        if person_name not in self.vertex_data:
+            print("❌ User not found.")
+            return
+
+        user = self.vertex_data[person_name]
+        print("\n=== Profile Information (Ignore Privacy) ===")
+        print(f"Name: {user.name}")
+        print(f"Gender: {user.gender}")
+        print(f"Biography: {user.biography}")
+        print(f"Privacy: {user.privacy}")
+

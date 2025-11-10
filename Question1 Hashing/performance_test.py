@@ -1,5 +1,4 @@
-# performance_test.py
-# Compare HashTable vs. List search performance
+# Compare Linked list in hash table vs one-dimensional array performance
 
 import time
 from hash_table import HashTable
@@ -7,7 +6,7 @@ from product import BabyProduct
 
 
 def performance_test():
-    print("\n⚙️ PERFORMANCE TEST: Hash Table vs. List Search ⚙️")
+    print("\n⚙️ PERFORMANCE TEST: Linked list in hash table vs. a one-dimensional array ⚙️")
 
     # Create hash table and list
     hash_table = HashTable(50)
@@ -38,15 +37,15 @@ def performance_test():
     list_duration = time.time() - start_time
 
     print(f"\n🔍 Search target: ID {target_id}")
-    print(f"✅ HashTable result: {hash_result}")
-    print(f"✅ List result: {list_result}")
+    print(f"✅ Linked list in hash table result: {hash_result}")
+    print(f"✅ one-dimensional array result: {list_result}")
 
     print("\n📊 Performance Comparison:")
-    print(f"HashTable search time: {hash_duration:.8f} seconds")
-    print(f"List search time:      {list_duration:.8f} seconds")
+    print(f"Linked list in hash table search time: {hash_duration:.8f} seconds")
+    print(f"one-dimensional array search time:      {list_duration:.8f} seconds")
 
     improvement = (list_duration / hash_duration) if hash_duration > 0 else 0
-    print(f"\n⚡ HashTable is approximately {improvement:.2f}× faster than List search (for this run).")
+    print(f"\n⚡ Linked list in hash table is approximately {improvement:.2f}× faster than one-dimensional array search.")
 
 
 if __name__ == "__main__":

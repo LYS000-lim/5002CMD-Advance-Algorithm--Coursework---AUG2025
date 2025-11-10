@@ -2,7 +2,7 @@ from hash_table import HashTable
 from product import HygieneProduct, BathProduct, FeedingProduct, SkinCareProduct, BabyProduct
 
 def run_cli():
-    inventory = HashTable(5)
+    inventory = HashTable(8)  # initial capacity fixed at 8
 
     # Predefined products
     inventory.put(1, FeedingProduct(1, "Baby Bottle", 15.00, 40))
@@ -11,6 +11,8 @@ def run_cli():
     inventory.put(4, SkinCareProduct(4, "Baby Shampoos", 15.00, 50))
 
     print("🍼 Welcome to Baby Shop Inventory System 🍼")
+
+    categories = ["Hygiene", "Bath", "Feeding", "Skincare"]
 
     while True:
         print("\nMenu:")
@@ -21,16 +23,39 @@ def run_cli():
         print("5. Display all")
         print("6. Exit")
 
-        choice = input("Enter your choice: ")
+        choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            product_id = int(input("Enter Product ID: "))
-            product_name = input("Enter Product Name: ")
-            category = input("Enter Product Category: ")
-            price = float(input("Enter Product Price: "))
-            quantity = int(input("Enter Product Quantity: "))
+            print("\n🧸 Available Categories: Hygiene, Bath, Feeding, Skincare, or others (default General)")
 
-            # Choose subclass based on category
+            # Validate Product ID
+            while True:
+                try:
+                    product_id = int(input("Enter Product ID: ").strip())
+                    break
+                except ValueError:
+                    print("❌ Invalid ID. Please enter an integer.")
+
+            product_name = input("Enter Product Name: ").strip().title()
+            category = input("Enter Product Category: ").strip().title()
+
+            # Validate price
+            while True:
+                try:
+                    price = float(input("Enter Product Price: ").strip())
+                    break
+                except ValueError:
+                    print("❌ Invalid price. Enter a number.")
+
+            # Validate quantity
+            while True:
+                try:
+                    quantity = int(input("Enter Product Quantity: ").strip())
+                    break
+                except ValueError:
+                    print("❌ Invalid quantity. Enter an integer.")
+
+            # Choose subclass
             category_lower = category.lower()
             if category_lower == "hygiene":
                 product = HygieneProduct(product_id, product_name, price, quantity)
@@ -44,32 +69,50 @@ def run_cli():
                 product = BabyProduct(product_id, product_name, category, price, quantity)
 
             inventory.put(product_id, product)
-            print(f"✅ Product '{product_name}' added successfully!")
 
         elif choice == "2":
-            key = int(input("Enter the product ID to search: "))
-            result = inventory.get(key)
-            if result:
-                print(f"🔍 Found: {result}")
-            else:
-                print("❌ Product not found.")
+            try:
+                key = int(input("Enter the product ID to search: ").strip())
+                result = inventory.get(key)
+                if result:
+                    print(f"🔍 Found: {result}")
+                else:
+                    print("❌ Product not found.")
+            except ValueError:
+                print("❌ Invalid ID.")
 
         elif choice == "3":
-            key = int(input("Enter product ID to modify: "))
-            new_name = input("Enter new name (leave blank to skip): ")
-            new_price = input("Enter new price (leave blank to skip): ")
-            new_quantity = input("Enter new quantity (leave blank to skip): ")
+            try:
+                key = int(input("Enter product ID to modify: ").strip())
+            except ValueError:
+                print("❌ Invalid ID.")
+                continue
+
+            new_name = input("Enter new name (leave blank to skip): ").strip()
+            new_price = input("Enter new price (leave blank to skip): ").strip()
+            new_quantity = input("Enter new quantity (leave blank to skip): ").strip()
 
             kwargs = {}
-            if new_name: kwargs["name"] = new_name
-            if new_price: kwargs["price"] = float(new_price)
-            if new_quantity: kwargs["quantity"] = int(new_quantity)
+            if new_name: kwargs["name"] = new_name.title()
+            if new_price:
+                try:
+                    kwargs["price"] = float(new_price)
+                except ValueError:
+                    print("❌ Invalid price. Skipping price update.")
+            if new_quantity:
+                try:
+                    kwargs["quantity"] = int(new_quantity)
+                except ValueError:
+                    print("❌ Invalid quantity. Skipping quantity update.")
 
             inventory.modify(key, **kwargs)
 
         elif choice == "4":
-            key = int(input("Enter product ID to delete: "))
-            inventory.delete(key)
+            try:
+                key = int(input("Enter product ID to delete: ").strip())
+                inventory.delete(key)
+            except ValueError:
+                print("❌ Invalid ID.")
 
         elif choice == "5":
             inventory.display()

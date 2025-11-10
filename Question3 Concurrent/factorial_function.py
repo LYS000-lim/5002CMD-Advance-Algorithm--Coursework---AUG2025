@@ -1,7 +1,8 @@
-def factorial_function(num):
-    factorial_num = 1 
-    for i in range(1, num + 1):
-        factorial_num *= i
-
-    return factorial_num
-
+def factorial(n):
+    """
+    Calculate factorial of a given number n.
+    """
+    result = 1
+    for i in range(1, n + 1):  # loop runs n times
+        result *= i
+    return result

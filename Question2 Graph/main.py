@@ -1,4 +1,5 @@
-from graph import Graph, Person
+from graph import Graph
+from person import Person
 
 def run_cli():
     app = Graph()
@@ -21,32 +22,32 @@ def run_cli():
             app.list_users()
         
         elif choice == "2":
-            name = input("Enter name you want to search: ")
+            name = input("Enter username: ").strip().capitalize()
             app.view_profile(name)
-        
+
         elif choice == "3":
-            name = input("Enter username: ")
+            name = input("Enter username: ").strip().capitalize()
             app.list_following(name)
-        
+
         elif choice == "4":
-            name = input("Enter username: ")
+            name = input("Enter username: ").strip().capitalize()
             app.list_followers(name)
 
         elif choice == "5":
-            name = input("Enter name: ")
-            gender = input("Enter gender: ")
-            bio = input("Enter biography: ")
-            privacy = input("Privacy (public/private): ").lower()            
+            name = input("Enter name: ").strip().capitalize()
+            gender = input("Enter gender: ").strip().capitalize()
+            bio = input("Enter biography: ").strip()
+            privacy = input("Privacy (public/private): ").strip().lower()
             app.add_vertex(Person(name, gender, bio, privacy))
 
         elif choice == "6":
-            follower = input("Enter follower username: ")
-            followed = input("Enter followed username: ")
+            follower = input("Enter username that user who want to follow: ").strip().capitalize()
+            followed = input("Enter username that user want to follow: ").strip().capitalize()
             app.add_edge(follower, followed)
 
         elif choice == "7":
-            unfollower = input("Enter unfollower username: ")
-            unfollowed = input("Enter unfollowed username: ")
+            unfollower = input("Enter username that user who want to unfollow: ").strip().capitalize()
+            unfollowed = input("Enter username that user want to unfollow: ").strip().capitalize()
             app.remove_edge(unfollower, unfollowed)  
 
         elif choice == "0":
