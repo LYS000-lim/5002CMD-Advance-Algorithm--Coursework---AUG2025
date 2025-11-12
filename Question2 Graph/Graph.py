@@ -112,15 +112,21 @@ class Graph:
         self.add_edge("Cena", "Lim")
 
     def view_profile_ignore_privacy(self, person_name):
-        """Display full profile details regardless of privacy setting."""
-        if person_name not in self.vertex_data:
+        # Make the search case-insensitive
+        matched_name = None
+        for name in self.vertex_data:
+            if name.lower() == person_name.lower():
+                matched_name = name
+                break
+
+        if not matched_name:
             print("❌ User not found.")
             return
 
-        user = self.vertex_data[person_name]
-        print("\n=== Profile Information (Ignore Privacy) ===")
+        user = self.vertex_data[matched_name]
         print(f"Name: {user.name}")
         print(f"Gender: {user.gender}")
         print(f"Biography: {user.biography}")
         print(f"Privacy: {user.privacy}")
+
 

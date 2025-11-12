@@ -6,7 +6,5 @@ class Person:
         self.privacy = privacy
 
     def __str__(self):
-        """String representation of the user, hides info if private."""
-        if self.privacy.lower() == "private":
-            return f"{self.name} (Private Profile)"
-        return f"{self.name} ({self.gender}) - {self.biography}"
+        """String representation of the user (ignore privacy)."""
+        return f"{self.name} ({self.gender}) - {self.biography} [{self.privacy.capitalize()}]"

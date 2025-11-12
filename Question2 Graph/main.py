@@ -23,7 +23,7 @@ def run_cli():
         
         elif choice == "2":
             name = input("Enter username: ").strip().capitalize()
-            app.view_profile(name)
+            app.view_profile_ignore_privacy(name)
 
         elif choice == "3":
             name = input("Enter username: ").strip().capitalize()
