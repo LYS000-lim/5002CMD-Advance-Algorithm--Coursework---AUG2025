@@ -1,8 +1,8 @@
 # Compare Linked list in hash table vs one-dimensional array performance
 
-import time
 from hash_table import HashTable
 from product import BabyProduct
+import sys, io, time
 
 
 def performance_test():
@@ -12,12 +12,21 @@ def performance_test():
     hash_table = HashTable(50)
     product_list = []
 
+    print("Generating 10,000 sample products...")
+
+    # Temporarily suppress print output
+    original_stdout = sys.stdout
+    sys.stdout = io.StringIO()
+
     # Insert 10,000 products
     print("Generating 10,000 sample products...")
     for i in range(10000):
         product = BabyProduct(i, f"Product-{i}", "General", price=i * 0.5, quantity=10)
         hash_table.put(i, product)
         product_list.append(product)
+
+     # Restore print output
+    sys.stdout = original_stdout
 
     # Ask user for target ID to search
     target_id = int(input("Enter the product ID number you want to test (e.g., 9999): "))

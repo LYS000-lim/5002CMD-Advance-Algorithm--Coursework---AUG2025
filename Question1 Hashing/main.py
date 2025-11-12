@@ -2,7 +2,7 @@ from hash_table import HashTable
 from product import HygieneProduct, BathProduct, FeedingProduct, SkinCareProduct, BabyProduct
 
 def run_cli():
-    inventory = HashTable(8)  # initial capacity fixed at 8
+    inventory = HashTable(8)  
 
     # Predefined products
     inventory.put(1, FeedingProduct(1, "Baby Bottle", 15.00, 40))
@@ -12,7 +12,7 @@ def run_cli():
 
     print("🍼 Welcome to Baby Shop Inventory System 🍼")
 
-    categories = ["Hygiene", "Bath", "Feeding", "Skincare"]
+    categories = ["HygieneProduct", "BathProduct", "FeedingProduct", "SkincareProduct"]
 
     while True:
         print("\nMenu:")
@@ -26,7 +26,7 @@ def run_cli():
         choice = input("Enter your choice: ").strip()
 
         if choice == "1":
-            print("\n🧸 Available Categories: Hygiene, Bath, Feeding, Skincare, or others (default General)")
+            print("\n🧸 Available Categories: HygieneProduct, BathProduct, FeedingProduct, SkincareProduct or others (default General)")
 
             # Validate Product ID
             while True:
