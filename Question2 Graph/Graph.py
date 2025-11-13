@@ -112,7 +112,6 @@ class Graph:
         self.add_edge("Cena", "Lim")
 
     def view_profile_ignore_privacy(self, person_name):
-        # Make the search case-insensitive
         matched_name = None
         for name in self.vertex_data:
             if name.lower() == person_name.lower():
