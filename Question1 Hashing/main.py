@@ -121,7 +121,7 @@ def run_cli():
             print("👋 Exiting... Goodbye!")
             break
 
-        else:
+        else:1
             print("⚠️ Invalid choice, try again.")
 
 

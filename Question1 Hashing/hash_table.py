@@ -8,12 +8,11 @@ class Node:
 
 class HashTable:
     """Hash Table implementation with linked list (chaining)."""
-    def __init__(self, initial_capacity=8, load_threshold_factor=0.75):
-        self.initial_capacity = initial_capacity  # keep original capacity
+    def __init__(self, initial_capacity=8):
+        self.initial_capacity = initial_capacity
         self.bucket_number = initial_capacity
         self.bucket = [Node() for _ in range(self.bucket_number)]
         self.size = 0
-        self.load_threshold_factor = load_threshold_factor
 
     def hash(self, key):
         return key % self.bucket_number
@@ -26,20 +25,6 @@ class HashTable:
             curr = curr.next
         return prev
 
-    def rehash(self):
-        old_bucket = self.bucket
-        self.bucket_number *= 2
-        self.bucket = [Node() for _ in range(self.bucket_number)]
-        old_size = self.size
-        self.size = 0
-
-        for head in old_bucket:
-            curr = head.next
-            while curr:
-                self.put(curr.key, curr.value, rehashing=True)
-                curr = curr.next
-        print(f"🔁 Rehashed {old_size} items into {self.bucket_number} buckets")
-
     def put(self, key, value, rehashing=False):
         """Insert new product. Warn if key exists, allow chaining."""
         index = self.hash(key)
@@ -50,7 +35,6 @@ class HashTable:
             print(f"⚠️ Product with ID {key} already exists. Use modify() to update it.")
             return
 
-        # Optional: format name and category if present
         if hasattr(value, "name"):
             value.name = value.name.title()
         if hasattr(value, "category"):
@@ -60,13 +44,10 @@ class HashTable:
         new_node = Node(key, value)
         new_node.next = head.next
         head.next = new_node
-        if not rehashing:
-            self.size += 1
-            print(f"✅ Added new product (ID {key})")
+        
+        self.size += 1
+        print(f"✅ Added new product (ID {key})")
 
-            # Rehash if load factor exceeded
-            if self.size / self.bucket_number > self.load_threshold_factor:
-                self.rehash()
 
     def get(self, key):
         index = self.hash(key)
