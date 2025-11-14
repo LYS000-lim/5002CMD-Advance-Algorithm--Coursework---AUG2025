@@ -22,8 +22,11 @@ def run_cli():
             app.list_users()
         
         elif choice == "2":
+            # Use this to view profile WITHOUT privacy (ignore privacy)
             name = input("Enter username: ").strip().capitalize()
-            app.view_profile_ignore_privacy(name)
+            # app.view_profile_ignore_privacy(name)
+            # Use this to view profile WITH privacy (apply privacy rules)
+            app.view_profile(name)
 
         elif choice == "3":
             name = input("Enter username: ").strip().capitalize()
