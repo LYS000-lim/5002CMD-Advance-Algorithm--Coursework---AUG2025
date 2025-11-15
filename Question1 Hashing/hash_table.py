@@ -25,13 +25,13 @@ class HashTable:
             curr = curr.next
         return prev
 
-    def put(self, key, value, rehashing=False):
+    def put(self, key, value):
         """Insert new product. Warn if key exists, allow chaining."""
         index = self.hash(key)
         head = self.bucket[index]
         prev = self.find(head, key)
 
-        if prev.next and not rehashing:
+        if prev.next:
             print(f"⚠️ Product with ID {key} already exists. Use modify() to update it.")
             return
 
